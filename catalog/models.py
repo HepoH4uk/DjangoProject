@@ -51,10 +51,13 @@ class Products(models.Model):
         related_name="products"
     )
     purchase_price = models.IntegerField(
-        max_length=50, verbose_name="Цена продукта", help_text="Введите цену продукта"
+        verbose_name="Цена продукта",
+        help_text="Введите цену продукта"
     )
     created_at = models.DateField(
-        max_length=50, verbose_name="Дата создания", help_text="Введите дату создания"
+        max_length=50,
+        verbose_name="Дата создания",
+        help_text="Введите дату создания"
     )
     updated_at = models.DateField(
         max_length=50,
