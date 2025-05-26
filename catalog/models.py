@@ -54,15 +54,13 @@ class Products(models.Model):
         verbose_name="Цена продукта",
         help_text="Введите цену продукта"
     )
-    created_at = models.DateField(
-        max_length=50,
-        verbose_name="Дата создания",
-        help_text="Введите дату создания"
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата создания"
     )
-    updated_at = models.DateField(
-        max_length=50,
-        verbose_name="Дата последнего изменения",
-        help_text="Введите дату изменения",
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Дата обновления"
     )
 
     class Meta:
