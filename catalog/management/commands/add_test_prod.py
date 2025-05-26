@@ -19,12 +19,14 @@ class Command(BaseCommand):
 
         category3, _ = Category.objects.get_or_create(name='Сладости', description='Всякая всячина',)
 
-        product3 = [{'names': 'Шоколад', 'description': 'Молочный шоколад', 'category': category3, 'price': 85},
-                    {'names': 'Конфеты', 'description': 'Конфеты на развес', 'category': category3, 'price': 50},]
+        product3 = [{'name': 'Шоколад', 'description': 'Молочный шоколад', 'category': category3, 'purchase_price': 85, 'created_at': '2025-05-25',
+        'updated_at': '2025-05-25'},
+                    {'name': 'Конфеты', 'description': 'Конфеты на развес', 'category': category3, 'purchase_price': 50, 'created_at': '2025-05-25',
+        'updated_at': '2025-05-25'},]
 
         for prod_data in product3:
             prod, created = Products.objects.get_or_create(**prod_data)
             if created:
-                self.stdout.write(self.style.SUCCESS(f'Выполнено успешно: {prod.names}'))
+                self.stdout.write(self.style.SUCCESS(f'Выполнено успешно: {prod.name}'))
             else:
-                self.stdout.write(self.style.WARNING(f'Уже имеется: {prod.names}'))
+                self.stdout.write(self.style.WARNING(f'Уже имеется: {prod.name}'))
