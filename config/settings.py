@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 
-from django.conf.global_settings import MEDIA_URL
+
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -135,4 +135,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR)
+MEDIA_ROOT = BASE_DIR / 'media'
