@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<h1>{{ object.title }}</h1>
+
+<img src="{{ object.preview_image.url }}" width="200" height="200" alt="{{ object.title }}">
+<p>{{ object.content }}</p>
+<p>Просмотры: {{ object.views_counter }}</p>
+
+<a class="btn btn-primary" href="{% url 'blog:post_list' %}">Назад к списку</a>
+<a class="btn btn-primary" href="{% url 'blog:post_update' object.pk %}">Редактировать</a>
+<a class="btn btn-danger" href="{% url 'blog:post_delete' object.pk %}">Удалить</a>
+{% endblock %}
