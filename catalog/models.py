@@ -63,6 +63,7 @@ class Products(models.Model):
         verbose_name="Дата обновления"
     )
 
+
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
