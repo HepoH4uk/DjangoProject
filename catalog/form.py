@@ -31,24 +31,24 @@ class ProductForm(StyleFormMixin,ModelForm):
         model = Products
         exclude = ('views_counter',)
 
-        def clean_name(self):
-            name = self.cleaned_data["name"]
-            lowered = name.lower()
-            for word in forbidden_words:
-                if word in lowered:
-                    raise ValidationError(f'В названии есть запрещенное слово: "{word}".')
-            return name
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        lowered = name.lower()
+        for word in forbidden_words:
+            if word in lowered:
+                raise ValidationError(f'В названии есть запрещенное слово: "{word}".')
+        return name
 
-        def clean_description(self):
-            description = self.cleaned_data["description"]
-            lowered = description.lower()
-            for word in forbidden_words:
-                if word in lowered:
-                    raise ValidationError(f'В описании есть запрещенное слово: "{word}".')
-            return description
+    def clean_description(self):
+        description = self.cleaned_data["description"]
+        lowered = description.lower()
+        for word in forbidden_words:
+            if word in lowered:
+                raise ValidationError(f'В описании есть запрещенное слово: "{word}".')
+        return description
 
-        def clean_price(self):
-            purchase_price = self.cleaned_data["price"]
-            if purchase_price is not None and purchase_price < 0:
-                raise ValidationError("Цена не может быть отрицательной")
-            return purchase_price
+    def clean_purchase_price(self):
+        purchase_price = self.cleaned_data["purchase_price"]
+        if purchase_price is not None and purchase_price < 0:
+            raise ValidationError("Цена не может быть отрицательной")
+        return purchase_price
