@@ -1,30 +1,41 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from catalog.models import Products
 
 
-def home(request):
-    return render(request, 'home.html')
+class HomeView(TemplateView):
+    template_name = "home.html"
 
 
-def contacts(request):
-    if request.method != "POST":
-        return render(request, 'contacts.html')
-    elif request.method == "POST":
-        name = request.POST.get('name')
-        message = request.POST.get('message')
-        return HttpResponse(f"{name}, благодарим Вас за обращение!")
-    return render(request,'contacts.html')
+class ContactsView(TemplateView):
+    template_name = "contacts.html"
 
 
-def products_list(request):
-    products = Products.objects.all()
-    context = {"products": products}
-    return render(request, 'products_list.html', context)
+class ProductListView(ListView):
+    model = Products
+    template_name = 'products_list.html'
 
 
-def products_details(request, pk):
-    product = get_object_or_404(Products, pk=pk)
-    context = {"product": product}
-    return render(request, 'products_details.html', context)
+class ProductDetailView(DetailView):
+    model = Products
+    template_name = 'products_details.html'
+
+
+class ProductCreateView(CreateView):
+    model = Products
+    fields = ("name","description","image","category","purchase_price")
+    success_url = reverse_lazy('products:products_list')
+    template_name = 'product_form.html'
+
+
+class ProductUpdateView(UpdateView):
+    model = Products
+    fields = ("name","description","image","category","purchase_price")
+    success_url = reverse_lazy('products:products_list')
+    template_name = 'product_form.html'
+
+
+class ProductDeleteView(DeleteView):
+    model = Products
+    success_url = reverse_lazy('products:products_list')
+    template_name = 'product_del_conf.html'
