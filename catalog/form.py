@@ -48,7 +48,7 @@ class ProductForm(StyleFormMixin,ModelForm):
             return description
 
         def clean_price(self):
-            price = self.cleaned_data["price"]
-            if price is not None and price < 0:
+            purchase_price = self.cleaned_data["price"]
+            if purchase_price is not None and purchase_price < 0:
                 raise ValidationError("Цена не может быть отрицательной")
-            return price
+            return purchase_price
