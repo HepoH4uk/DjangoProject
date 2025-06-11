@@ -62,6 +62,7 @@ class Products(models.Model):
         auto_now=True,
         verbose_name="Дата обновления"
     )
+    views_counter = models.PositiveIntegerField(default=0)
 
 
     class Meta:
