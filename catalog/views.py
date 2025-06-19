@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
@@ -30,21 +31,21 @@ class ProductDetailView(DetailView):
         return obj
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Products
     form_class = ProductForm
     success_url = reverse_lazy('products:products_list')
     template_name = 'product_form.html'
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Products
     form_class = ProductForm
     success_url = reverse_lazy('products:products_list')
     template_name = 'product_form.html'
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Products
     success_url = reverse_lazy('products:products_list')
     template_name = 'product_del_conf.html'
