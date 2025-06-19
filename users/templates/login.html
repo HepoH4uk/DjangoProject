@@ -11,15 +11,12 @@
                         {{ form.as_p }}
                     </div>
                     <button type="submit" class="btn btn-primary">
-                        {% if object %}
-                        Сохранить
-                        {% else %}
-                        Создать
-                        {% endif %}
+
+                        Войти
+
+
                     </button>
-                    <div class="btn-group">
-                  <a  class="btn btn-primary" href="{% url 'products:products_list' %}">Назад</a>
-                </div>
+
                 </div>
             </form>
         </div>
