@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField(max_length=32, unique=False, blank=True, null=True)
     email = models.EmailField(unique=True, verbose_name="Email")
 
     phone = models.CharField(max_length=35, verbose_name="Номер телефона", blank=True, null=True, help_text="Введите номер телефона")
@@ -11,7 +11,7 @@ class User(AbstractUser):
     token = models.CharField(max_length=100, verbose_name="Token", blank=True, null=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         verbose_name = "Пользователь"
