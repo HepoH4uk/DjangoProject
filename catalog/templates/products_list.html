@@ -18,7 +18,7 @@
                   {% if user == product.owner %}
                   <a  class="btn btn-primary" href="{% url 'products:products_update' product.pk %}">Редактировать</a>
                   {% endif %}
-                  {% if perms.products.can_unpublish_product or user == product.owner %}
+                  {% if perms.catalog.can_unpublish_product or user == product.owner %}
                   <a  class="btn btn-primary" href="{% url 'products:product_delete' product.pk %}">Удалить</a>
                   {% endif %}
                 </div>
