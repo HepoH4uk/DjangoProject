@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models import BooleanField
+
+from users.models import User
 
 
 class Category(models.Model):
@@ -63,6 +66,8 @@ class Products(models.Model):
         verbose_name="Дата обновления"
     )
     views_counter = models.PositiveIntegerField(default=0)
+    publication_status = BooleanField(default=False)
+    owner = models.ForeignKey(User, verbose_name="Владелец", help_text="Укажите владельца продукта", blank=True, null=True, on_delete=models.SET_NULL)
 
 
     class Meta:
@@ -71,6 +76,9 @@ class Products(models.Model):
         ordering = [
             "name",
             "category",
+        ]
+        permissions = [
+            ('can_unpublish_product', 'Can unpublish product')
         ]
 
     def __str__(self):

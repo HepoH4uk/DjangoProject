@@ -29,7 +29,7 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin,ModelForm):
     class Meta:
         model = Products
-        exclude = ('views_counter',)
+        exclude = ('views_counter', 'owner')
 
     def clean_name(self):
         name = self.cleaned_data["name"]
@@ -52,3 +52,9 @@ class ProductForm(StyleFormMixin,ModelForm):
         if purchase_price is not None and purchase_price < 0:
             raise ValidationError("Цена не может быть отрицательной")
         return purchase_price
+
+
+class ProductModeratorForm(StyleFormMixin,ModelForm):
+    class Meta:
+        model = Products
+        exclude = ('publication_status',)
