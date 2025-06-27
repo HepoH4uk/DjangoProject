@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from catalog.form import ProductForm, ProductModeratorForm
-from catalog.models import Products
+from catalog.models import Products, Category
+from catalog.services import get_products_cache, get_products_by_category
 
 
 class HomeView(TemplateView):
@@ -18,6 +20,10 @@ class ContactsView(TemplateView):
 class ProductListView(ListView):
     model = Products
     template_name = 'products_list.html'
+
+    def get_queryset(self):
+        return get_products_cache()
+
 
 
 class ProductDetailView(DetailView):
@@ -65,3 +71,27 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Products
     success_url = reverse_lazy('products:products_list')
     template_name = 'product_del_conf.html'
+
+
+class ProductsByCategoryDetailView(DetailView):
+    model = Category
+    template_name = 'category_products.html'
+    context_object_name = 'product_by_category'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cat_id = self.kwargs.get('pk')
+        context["category_products"] = get_products_by_category(cat_id)
+        return context
+
+    def get_queryset(self):
+        queryset = cache.get('my_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('my_queryset', queryset, 60 * 15)  # Кешируем данные на 15 минут
+        return queryset
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'category_list.html'
+    context_object_name = 'categories'
