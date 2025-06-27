@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.13"
 pillow = "^11.2.1"
 django = "4.2.2"
+redis = "^6.2.0"
 
 
 [build-system]
